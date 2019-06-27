@@ -1,0 +1,35 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "region": "ap-southeast-2",
+    "instance_type": "t2.micro",
+    "ami_name": "WebServer Server With IIS {{timestamp}}",
+    "user_data_file": "./scripts/SetUpWinRM.ps1",
+    "communicator": "winrm",
+    "winrm_username": "Administrator",
+    "winrm_use_ssl": true,
+    "winrm_insecure": true,
+    "source_ami_filter": {
+      "filters": {
+        "name": "Windows_Server-2012-R2_RTM-English-64Bit-Base-*"
+      },
+      "most_recent": true
+    }
+  }],
+  "provisioners": [{
+      "type": "powershell",
+      "inline": "Install-WindowsFeature -name Web-Server -IncludeManagementTools"
+    },
+    {
+      "type": "powershell",
+      "scripts": [
+        "./scripts/EC2Config.ps1",
+        "./scripts/BundleConfig.ps1",
+        "./scripts/InstallTentacle.ps1"
+      ]
+    }
+  ],
+  "post-processors": [{
+    "type": "manifest"
+  }]
+}
