@@ -87,17 +87,17 @@ function Install-Tentacle
   if ($lastExitCode -ne 0) {
     throw "Installation failed on configure"
   }
-#   & .\tentacle.exe register-with --instance "Tentacle" --server $octopusServerUrl --environment $environment --role $role --name $env:COMPUTERNAME --publicHostName $ipAddress --apiKey $apiKey --comms-style TentaclePassive --force --console | Write-Host
-#   if ($lastExitCode -ne 0) {
-#     throw "Installation failed on register-with"
-#   }
+  & .\tentacle.exe register-with --instance "Tentacle" --server $octopusServerUrl --environment $environment --role $role --name $env:COMPUTERNAME --publicHostName $ipAddress --apiKey $apiKey --comms-style TentaclePassive --force --console | Write-Host
+  if ($lastExitCode -ne 0) {
+    throw "Installation failed on register-with"
+  }
  
-#   & .\tentacle.exe service --instance "Tentacle" --install --start --console | Write-Host
-#   if ($lastExitCode -ne 0) {
-#     throw "Installation failed on service install"
-#   }
+  & .\tentacle.exe service --instance "Tentacle" --install --start --console | Write-Host
+  if ($lastExitCode -ne 0) {
+    throw "Installation failed on service install"
+  }
  
   Write-Output "Tentacle commands complete"
 }
 
-# Install-Tentacle -apikey $yourApiKey -octopusServerUrl $octopusServerUrl -environment $registerInEnvironments -role $registerInRoles
+Install-Tentacle -apikey $yourApiKey -octopusServerUrl $octopusServerUrl -environment $registerInEnvironments -role $registerInRoles
