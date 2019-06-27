@@ -1,3 +1,4 @@
 TestResults.xml
 packer-manifest.json
 packer-manifest.json.lock
+scripts/InstallTentacle.ps1
