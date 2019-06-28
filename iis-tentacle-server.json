@@ -22,9 +22,14 @@
     },
     {
       "type": "powershell",
+      "inline": "Add-WindowsFeature MSMQ"
+    },
+    {
+      "type": "powershell",
       "scripts": [
         "./scripts/EC2Config.ps1",
         "./scripts/BundleConfig.ps1",
+        "./scripts/SetUpDevTools.ps1",
         "./scripts/InstallTentacle.ps1"
       ]
     }
