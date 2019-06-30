@@ -11,7 +11,7 @@
     "winrm_insecure": true,
     "source_ami_filter": {
       "filters": {
-        "name": "Windows_Server-2012-R2_RTM-English-64Bit-Base-*"
+        "name": "Windows_Server-2016*"
       },
       "most_recent": true
     }
@@ -25,12 +25,22 @@
       "inline": "Add-WindowsFeature MSMQ"
     },
     {
+      "type": "file",
+      "source": "./scripts/Startup.ps1",
+      "destination": "C:/Windows/Temp"
+    },
+    {
+      "type": "file",
+      "source": "./scripts/Shutdown.ps1",
+      "destination": "C:/Windows/Temp"
+    },
+    {
       "type": "powershell",
       "scripts": [
         "./scripts/EC2Config.ps1",
         "./scripts/BundleConfig.ps1",
         "./scripts/SetUpDevTools.ps1",
-        "./scripts/InstallTentacle.ps1"
+        "./scripts/RegisterScripts.ps1"
       ]
     }
   ],
