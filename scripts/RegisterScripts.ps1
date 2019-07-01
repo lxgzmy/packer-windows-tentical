@@ -10,11 +10,11 @@ $scriptsConfig = @{
     EndExecutePSFirst =   'true'
 }
 $startup = @{
-    '0CmdLine' =    'C:\Windows\Temp\tests\startup.ps1'
+    '0CmdLine' =    'C:\Windows\Temp\tests\Startup.ps1'
     '0Parameters' = ''
 }
 $shutdown = @{
-    '0CmdLine' =    'C:\Windows\Temp\tests\shutdown.ps1'
+    '0CmdLine' =    'C:\Windows\Temp\tests\Shutdown.ps1'
     '0Parameters' = ''
 }
 $newIniContent = [ordered] @{ 
