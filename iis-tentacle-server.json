@@ -9,16 +9,25 @@
     "winrm_username": "Administrator",
     "winrm_use_ssl": true,
     "winrm_insecure": true,
+    "winrm_timeout": "12h",
     "source_ami_filter": {
       "filters": {
-        "name": "Windows_Server-2016*"
+          "name": "Windows_Server-2016-English-Full-Base-*",
+          "root-device-type": "ebs",
+          "virtualization-type": "hvm"
       },
-      "most_recent": true
+      "most_recent": true,
+      "owners": [
+          "801119661308"
+      ]
     }
   }],
   "provisioners": [{
       "type": "powershell",
-      "inline": "Install-WindowsFeature -name Web-Server -IncludeManagementTools"
+      "inline": [
+        "Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServerRole",
+        "Enable-WindowsOptionalFeature -Online -FeatureName IIS-WebServer"
+      ]
     },
     {
       "type": "powershell",
@@ -26,21 +35,24 @@
     },
     {
       "type": "file",
-      "source": "./scripts/Startup.ps1",
-      "destination": "C:/Windows/Temp"
-    },
-    {
-      "type": "file",
-      "source": "./scripts/Shutdown.ps1",
+      "source": "./tests",
       "destination": "C:/Windows/Temp"
     },
     {
       "type": "powershell",
       "scripts": [
-        "./scripts/EC2Config.ps1",
-        "./scripts/BundleConfig.ps1",
-        "./scripts/SetUpDevTools.ps1",
-        "./scripts/RegisterScripts.ps1"
+        "./scripts/SetUpDevTools.ps1"
+      ]
+    },
+    {
+      "type": "powershell",
+      "script": "./scripts/RegisterScripts.ps1"
+    },
+    {
+      "type": "powershell",
+      "inline": [
+        "C:/ProgramData/Amazon/EC2-Windows/Launch/Scripts/InitializeInstance.ps1 -Schedule",
+        "C:/ProgramData/Amazon/EC2-Windows/Launch/Scripts/SysprepInstance.ps1 -NoShutdown"
       ]
     }
   ],
