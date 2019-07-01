@@ -12,7 +12,7 @@ For a full licence I'd suggest only using Packer to build the remote agent AMIs 
 1. Clone or download this repo
 1. In the repo folder run 
     ```
-    packer build bamboo-server.json
+    packer build -var-file=variables.json iis-tentacle-server.json
     ```
 1. Go make a cup of coffee
 1. Once finished, check the output for successful test results.
